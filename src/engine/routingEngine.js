@@ -84,6 +84,9 @@ export function findRoutes({ fromCurrency, toCurrency, amount, anchors }) {
   if (!(amount > 0)) {
     throw new Error('amount must be a positive number')
   }
+  if (!Array.isArray(anchors)) {
+    throw new Error('anchors must be an array (received: ' + typeof anchors + ')')
+  }
 
   const routes = []
 

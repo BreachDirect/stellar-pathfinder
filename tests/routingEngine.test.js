@@ -69,4 +69,10 @@ describe('findRoutes', () => {
       /positive/
     )
   })
+
+  it('throws a clear error when anchors is not an array (e.g. a failed Phase 2 fetch)', () => {
+    expect(() =>
+      findRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors: undefined })
+    ).toThrow(/anchors must be an array/)
+  })
 })
