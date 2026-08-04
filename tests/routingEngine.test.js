@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { findRoutes } from '../src/engine/routingEngine'
+import { findRoutes, createCachedFindRoutes } from '../src/engine/routingEngine'
 
 const anchors = [
   { id: 'a-usd-usdc', name: 'A', fromCurrency: 'USD', toCurrency: 'USDC', feePercent: 0.1, estimatedMinutes: 5, minAmount: 1, maxAmount: 100000 },
@@ -74,5 +74,31 @@ describe('findRoutes', () => {
     expect(() =>
       findRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors: undefined })
     ).toThrow(/anchors must be an array/)
+  })
+})
+
+describe('createCachedFindRoutes', () => {
+  it('returns identical results for repeated identical queries', () => {
+    const cachedFindRoutes = createCachedFindRoutes()
+    const first = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
+    const second = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
+    expect(second).toEqual(first)
+  })
+
+  it('reuses the cached result instead of recomputing', () => {
+    const cachedFindRoutes = createCachedFindRoutes()
+    const params = { fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors }
+    const first = cachedFindRoutes(params)
+    const second = cachedFindRoutes(params)
+    // findRoutes returns a fresh array each call, so the same reference
+    // proves the second call was served from the cache.
+    expect(second).toBe(first)
+  })
+
+  it('computes a fresh result for a different query', () => {
+    const cachedFindRoutes = createCachedFindRoutes()
+    const first = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
+    const second = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 200, anchors })
+    expect(second).not.toBe(first)
   })
 })

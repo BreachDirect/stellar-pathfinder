@@ -2,8 +2,11 @@ import { useState } from 'react'
 import RemittanceForm from './components/RemittanceForm'
 import RouteList from './components/RouteList'
 import { mockAnchors, availableCurrencies } from './data/mockAnchors'
-import { findRoutes } from './engine/routingEngine'
+import { createCachedFindRoutes } from './engine/routingEngine'
 import './styles.css'
+
+// Session-scoped cache: repeated identical queries skip recomputation.
+const findRoutesCached = createCachedFindRoutes()
 
 export default function App() {
   const [routes, setRoutes] = useState([])
@@ -16,7 +19,7 @@ export default function App() {
   function handleSubmit({ fromCurrency, toCurrency, amount }) {
     setEngineError(null)
     try {
-      const found = findRoutes({ fromCurrency, toCurrency, amount, anchors: mockAnchors })
+      const found = findRoutesCached({ fromCurrency, toCurrency, amount, anchors: mockAnchors })
       setRoutes(found)
       setLastQuery({ fromCurrency, toCurrency, amount })
       setSearched(true)
