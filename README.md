@@ -4,6 +4,8 @@ Compare cross-border remittance routes across Stellar anchors — 1-hop and
 2-hop paths, ranked by compounded fee + time.
 
 See `PRD.md` for the product goal and `architecture.md` for how it's built.
+The `Route`/`Hop` data shapes produced by the routing engine are documented
+in [`docs/data-shapes.md`](docs/data-shapes.md).
 
 ## Status
 
