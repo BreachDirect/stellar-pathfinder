@@ -1,0 +1,56 @@
+# .github/dependabot.yml
+# Keep React, Vite, Vitest and GitHub Actions dependencies patched automatically.
+# Issue #48 — https://github.com/BreachDirect/stellar-pathfinder/issues/48
+
+version: 2
+
+updates:
+  # ── npm (React / Vite / Vitest) ────────────────────────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"            # package.json lives in the repo root
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 10
+    # Group minor + patch updates together so the PR queue stays manageable.
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      vite:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+      vitest:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
+    # Keep major version bumps as separate PRs so they are reviewed individually.
+    ignore: []
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+
+  # ── GitHub Actions ─────────────────────────────────────────────────────────
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
+      include: "scope"
