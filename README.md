@@ -36,6 +36,28 @@ npm test
 npm run build
 ```
 
+## PR previews
+
+Every PR gets a live preview deployed to GitHub Pages via
+[`rossjrw/pr-preview-action`](https://github.com/rossjrw/pr-preview-action)
+(`.github/workflows/pr-preview.yml`), posted as a comment on the PR. This
+needs no external account or secrets — just GitHub Pages.
+
+**One-time setup required** (repo admin, not done by this PR): enable Pages
+under **Settings → Pages**, source **"Deploy from a branch"**, branch
+**`gh-pages`** / **`/ (root)`**. The action creates the `gh-pages` branch
+itself on first run if it doesn't already exist, but the Pages source still
+needs to be pointed at it manually once.
+
+**Known limitation:** `pr-preview-action` v1 does not support PRs opened
+from forks (only PRs from branches within this repo) — noted in
+[the action's own README](https://github.com/rossjrw/pr-preview-action) as
+a v2 feature. Since most contributions to this repo arrive via forks,
+previews won't appear on those PRs yet. Worth revisiting once v2 ships, or
+switching to a Vercel/Netlify integration (which does support fork PRs, at
+the cost of needing an external account + secrets configured by a
+maintainer) if fork previews are needed sooner.
+
 ## Project structure
 
 ```
