@@ -11,6 +11,12 @@ export default function RemittanceForm({ currencies, onSubmit }) {
   const [amount, setAmount] = useState('100')
   const [error, setError] = useState(null)
 
+  function handleSwap() {
+    setFromCurrency(toCurrency)
+    setToCurrency(fromCurrency)
+    setError(null)
+  }
+
   function handleSubmit(e) {
     e.preventDefault()
     setError(null)
@@ -34,30 +40,42 @@ export default function RemittanceForm({ currencies, onSubmit }) {
 
   return (
     <form className="remittance-form" onSubmit={handleSubmit}>
-      <div className="field">
-        <label htmlFor="fromCurrency">From</label>
-        <select
-          id="fromCurrency"
-          value={fromCurrency}
-          onChange={(e) => setFromCurrency(e.target.value)}
-        >
-          {currencies.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="currency-fields">
+        <div className="field">
+          <label htmlFor="fromCurrency">From</label>
+          <select
+            id="fromCurrency"
+            value={fromCurrency}
+            onChange={(e) => setFromCurrency(e.target.value)}
+          >
+            {currencies.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="field">
-        <label htmlFor="toCurrency">To</label>
-        <select id="toCurrency" value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
-          {currencies.map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
+        <button
+          type="button"
+          className="swap-button"
+          onClick={handleSwap}
+          aria-label="Swap source and destination currency"
+          title="Swap source and destination"
+        >
+          ⇄
+        </button>
+
+        <div className="field">
+          <label htmlFor="toCurrency">To</label>
+          <select id="toCurrency" value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+            {currencies.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="field">
