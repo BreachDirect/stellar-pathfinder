@@ -49,7 +49,9 @@ EUR→NGN, etc.).
 
 ### `src/engine/routingEngine.js`
 Pure function, no React/DOM dependency (easy to unit test in isolation,
-and Phase 2 swaps its data input without touching this file):
+and Phase 2 swaps its data input without touching this file) — see
+[ADR-0001](adr/0001-keep-routing-engine-framework-agnostic.md) for the
+reasoning behind this:
 
 ```js
 findRoutes({ fromCurrency, toCurrency, amount, anchors }) -> Route[]
