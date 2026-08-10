@@ -12,6 +12,9 @@ permissions:
 
 jobs:
   deploy-preview:
+    # Preview deploys push to this repo's gh-pages branch, which the
+    # read-only GITHUB_TOKEN of a fork PR cannot do. Skip for fork PRs.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +24,7 @@ jobs:
         if: github.event.action != 'closed'
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - name: Install and build
