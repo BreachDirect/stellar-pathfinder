@@ -2,27 +2,36 @@ import { useState } from 'react'
 import RemittanceForm from './components/RemittanceForm'
 import RouteList from './components/RouteList'
 import { mockAnchors, availableCurrencies } from './data/mockAnchors'
-import { findRoutes } from './engine/routingEngine'
+import { createCachedFindRoutes } from './engine/routingEngine'
 import './styles.css'
+
+// Session-scoped cache: repeated identical queries skip recomputation.
+const findRoutesCached = createCachedFindRoutes()
 
 export default function App() {
   const [routes, setRoutes] = useState([])
   const [searched, setSearched] = useState(false)
   const [lastQuery, setLastQuery] = useState(null)
   const [engineError, setEngineError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const currencies = availableCurrencies()
 
-  function handleSubmit({ fromCurrency, toCurrency, amount }) {
+  async function handleSubmit({ fromCurrency, toCurrency, amount }) {
+    if (loading) return
     setEngineError(null)
+    setSearched(false)
+    setLoading(true)
     try {
-      const found = findRoutes({ fromCurrency, toCurrency, amount, anchors: mockAnchors })
+      await new Promise((resolve) => setTimeout(resolve, 500))
+      const found = findRoutesCached({ fromCurrency, toCurrency, amount, anchors: mockAnchors })
       setRoutes(found)
       setLastQuery({ fromCurrency, toCurrency, amount })
       setSearched(true)
     } catch (err) {
       setEngineError(err.message)
-      setSearched(false)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -48,7 +57,14 @@ export default function App() {
           </p>
         )}
 
-        <RouteList routes={routes} searched={searched} />
+        {loading ? (
+          <div className="loading" role="status">
+            <span className="spinner" aria-hidden="true" />
+            Finding routes…
+          </div>
+        ) : (
+          <RouteList routes={routes} searched={searched} />
+        )}
       </main>
 
       <footer>

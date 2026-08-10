@@ -113,3 +113,26 @@ export function findRoutes({ fromCurrency, toCurrency, amount, anchors }) {
 
   return routes.sort((a, b) => a.totalCost - b.totalCost)
 }
+
+/**
+ * Returns a memoized wrapper around findRoutes. Repeated identical queries
+ * (same fromCurrency/toCurrency/amount) within a session reuse the previous
+ * result instead of recomputing. The cache is caller-owned, so a fresh cache
+ * can be supplied whenever the anchor set changes (e.g. Phase 2 live data) —
+ * the cache key assumes the anchor set is stable for the cache's lifetime.
+ *
+ * @param {Map<string, Route[]>} [cache] - optional cache; defaults to a fresh Map
+ * @returns {function({fromCurrency: string, toCurrency: string, amount: number, anchors: object[]}): Route[]}
+ */
+export function createCachedFindRoutes(cache = new Map()) {
+  return function cachedFindRoutes(params) {
+    const { fromCurrency, toCurrency, amount } = params
+    const key = `${fromCurrency}|${toCurrency}|${amount}`
+    if (cache.has(key)) {
+      return cache.get(key)
+    }
+    const result = findRoutes(params)
+    cache.set(key, result)
+    return result
+  }
+}

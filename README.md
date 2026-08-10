@@ -4,6 +4,7 @@ Compare cross-border remittance routes across Stellar anchors — 1-hop and
 2-hop paths, ranked by compounded fee + time.
 
 See `PRD.md` for the product goal and `architecture.md` for how it's built.
+See [`adr/`](adr/) for the reasoning behind significant architecture decisions.
 
 ## Status
 
@@ -36,16 +37,55 @@ npm test
 npm run build
 ```
 
+## Run Storybook
+
+Develop and review components in isolation — no need to run the full app:
+
+```bash
+npm run storybook
+```
+
+Stories live next to their components (`src/components/*.stories.jsx`) and
+render against the app's real stylesheet and mock anchor data, so they show
+the same shapes the app displays. `npm run build-storybook` emits a static
+build to `storybook-static/` (gitignored) for CI or deployment.
+
+## PR previews
+
+Every PR gets a live preview deployed to GitHub Pages via
+[`rossjrw/pr-preview-action`](https://github.com/rossjrw/pr-preview-action)
+(`.github/workflows/pr-preview.yml`), posted as a comment on the PR. This
+needs no external account or secrets — just GitHub Pages.
+
+**One-time setup required** (repo admin, not done by this PR): enable Pages
+under **Settings → Pages**, source **"Deploy from a branch"**, branch
+**`gh-pages`** / **`/ (root)`**. The action creates the `gh-pages` branch
+itself on first run if it doesn't already exist, but the Pages source still
+needs to be pointed at it manually once.
+
+**Known limitation:** `pr-preview-action` v1 does not support PRs opened
+from forks (only PRs from branches within this repo) — noted in
+[the action's own README](https://github.com/rossjrw/pr-preview-action) as
+a v2 feature. Since most contributions to this repo arrive via forks,
+previews won't appear on those PRs yet. Worth revisiting once v2 ships, or
+switching to a Vercel/Netlify integration (which does support fork PRs, at
+the cost of needing an external account + secrets configured by a
+maintainer) if fork previews are needed sooner.
+
 ## Project structure
 
 ```
+.storybook/                # Storybook config (main.js, preview.js)
 src/
   data/mockAnchors.js      # Phase 2 replaces this with live API calls
   engine/routingEngine.js  # pure function — pathfinding + ranking, no React/DOM
   components/
     RemittanceForm.jsx
+    RemittanceForm.stories.jsx
     RouteList.jsx
+    RouteList.stories.jsx
     RouteCard.jsx
+    RouteCard.stories.jsx
   App.jsx                  # wires form -> engine -> results
 tests/
   routingEngine.test.js
