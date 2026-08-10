@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unit test for `availableCurrencies()` (resolves #27).
 - Component tests for `RouteList` covering the not-searched, empty, and
   populated states (resolves #25).
+- Storybook for isolated visual development of `RemittanceForm`, `RouteCard`,
+  and `RouteList` (`npm run storybook`), with autodocs and a11y checks.
+  `npm run build-storybook` emits a static build to `storybook-static/`.
 
 ### Fixed
 

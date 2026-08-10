@@ -37,6 +37,19 @@ npm test
 npm run build
 ```
 
+## Run Storybook
+
+Develop and review components in isolation — no need to run the full app:
+
+```bash
+npm run storybook
+```
+
+Stories live next to their components (`src/components/*.stories.jsx`) and
+render against the app's real stylesheet and mock anchor data, so they show
+the same shapes the app displays. `npm run build-storybook` emits a static
+build to `storybook-static/` (gitignored) for CI or deployment.
+
 ## PR previews
 
 Every PR gets a live preview deployed to GitHub Pages via
@@ -62,13 +75,17 @@ maintainer) if fork previews are needed sooner.
 ## Project structure
 
 ```
+.storybook/                # Storybook config (main.js, preview.js)
 src/
   data/mockAnchors.js      # Phase 2 replaces this with live API calls
   engine/routingEngine.js  # pure function — pathfinding + ranking, no React/DOM
   components/
     RemittanceForm.jsx
+    RemittanceForm.stories.jsx
     RouteList.jsx
+    RouteList.stories.jsx
     RouteCard.jsx
+    RouteCard.stories.jsx
   App.jsx                  # wires form -> engine -> results
 tests/
   routingEngine.test.js

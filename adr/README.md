@@ -28,3 +28,4 @@ Small refactors, bug fixes, and style-only changes don't need one.
 | # | Title | Status |
 |---|---|---|
 | [0001](0001-keep-routing-engine-framework-agnostic.md) | Keep the routing engine framework-agnostic | Accepted |
+| [0002](0002-add-storybook-for-component-development.md) | Add Storybook for component development | Accepted |
