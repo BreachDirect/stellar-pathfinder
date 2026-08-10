@@ -1,0 +1,6 @@
+# Routing engine and its tests
+/src/engine/ @ToryMic
+/tests/routingEngine.test.js @ToryMic
+
+# UI components
+/src/components/ @broda-spendy
