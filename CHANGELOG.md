@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- "Copy details" button on each route card — copies the route path, fee,
+  and time as plain text to the clipboard (resolves #21).
+
 ### Fixed
 
 - `routingEngine.findRoutes` now validates that `anchors` is an array,
