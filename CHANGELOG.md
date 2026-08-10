@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - "Copy details" button on each route card — copies the route path, fee,
   and time as plain text to the clipboard (resolves #21).
+- Unit test for `availableCurrencies()` (resolves #27).
+- Component tests for `RouteList` covering the not-searched, empty, and
+  populated states (resolves #25).
 
 ### Fixed
 
