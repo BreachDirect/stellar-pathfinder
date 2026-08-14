@@ -23,6 +23,7 @@ export default function App() {
   const [searched, setSearched] = useState(false)
   const [lastQuery, setLastQuery] = useState(null)
   const [engineError, setEngineError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   const currencies = availableCurrencies()
 
@@ -39,14 +40,18 @@ export default function App() {
    */
   function handleSubmit({ fromCurrency, toCurrency, amount }) {
     setEngineError(null)
+    setSearched(false)
+    setLoading(true)
     try {
+      await new Promise((resolve) => setTimeout(resolve, 500))
       const found = findRoutesCached({ fromCurrency, toCurrency, amount, anchors: mockAnchors })
       setRoutes(found)
       setLastQuery({ fromCurrency, toCurrency, amount })
       setSearched(true)
     } catch (err) {
       setEngineError(err.message)
-      setSearched(false)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -72,7 +77,14 @@ export default function App() {
           </p>
         )}
 
-        <RouteList routes={routes} searched={searched} />
+        {loading ? (
+          <div className="loading" role="status">
+            <span className="spinner" aria-hidden="true" />
+            Finding routes…
+          </div>
+        ) : (
+          <RouteList routes={routes} searched={searched} />
+        )}
       </main>
 
       <footer>

@@ -12,13 +12,23 @@
  * @param {number} props.rank - This route's 1-based position in the ranked list, for display (e.g. "#1").
  */
 export default function RouteCard({ route, rank }) {
+  const [copied, setCopied] = useState(false)
   const path = [route.hops[0].fromCurrency, ...route.hops.map((h) => h.toCurrency)].join(' → ')
+
+  async function handleCopy() {
+    await writeClipboard(buildRouteDetailsText(route))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <li className="route-card">
       <div className="route-card-header">
         <span className="route-rank">#{rank}</span>
         <span className="route-path">{path}</span>
+        <button type="button" className="copy-button" onClick={handleCopy} aria-live="polite">
+          {copied ? 'Copied!' : 'Copy details'}
+        </button>
       </div>
 
       <div className="route-card-stats">

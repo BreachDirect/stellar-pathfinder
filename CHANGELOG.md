@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- "Copy details" button on each route card — copies the route path, fee,
+  and time as plain text to the clipboard (resolves #21).
+- Loading state while routes are being calculated: short artificial delay
+  plus spinner, stylable ahead of Phase 2's real network calls (resolves #16).
+- Unit test for `availableCurrencies()` (resolves #27).
+- Component tests for `RouteList` covering the not-searched, empty, and
+  populated states (resolves #25).
+- Storybook for isolated visual development of `RemittanceForm`, `RouteCard`,
+  and `RouteList` (`npm run storybook`), with autodocs and a11y checks.
+  `npm run build-storybook` emits a static build to `storybook-static/`.
+
 ### Fixed
 
 - `routingEngine.findRoutes` now validates that `anchors` is an array,
