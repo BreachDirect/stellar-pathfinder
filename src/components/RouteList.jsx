@@ -29,7 +29,11 @@ export default function RouteList({ routes, searched }) {
   return (
     <ul className="route-list">
       {routes.map((route, index) => (
-        <RouteCard key={route.hops.map((h) => h.anchorId).join('-')} route={route} rank={index + 1} />
+        <RouteCard
+          key={route.hops.map((h) => h.anchorId).join('-')}
+          route={route}
+          rank={index + 1}
+        />
       ))}
     </ul>
   )

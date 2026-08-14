@@ -2,7 +2,12 @@ import RouteList from './RouteList'
 import { findRoutes } from '../engine/routingEngine'
 import { mockAnchors } from '../data/mockAnchors'
 
-const routes = findRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 1000, anchors: mockAnchors })
+const routes = findRoutes({
+  fromCurrency: 'USD',
+  toCurrency: 'GBP',
+  amount: 1000,
+  anchors: mockAnchors
+})
 
 export default {
   title: 'Components/RouteList',
@@ -10,22 +15,22 @@ export default {
   tags: ['autodocs'],
   args: {
     routes,
-    searched: true,
+    searched: true
   },
   argTypes: {
     routes: { control: false },
-    searched: { control: { type: 'boolean' } },
-  },
+    searched: { control: { type: 'boolean' } }
+  }
 }
 
 export const WithRoutes = {}
 
 export const NoResults = {
   name: 'No results (searched)',
-  args: { routes: [], searched: true },
+  args: { routes: [], searched: true }
 }
 
 export const NotSearched = {
   name: 'Not searched yet',
-  args: { routes: [], searched: false },
+  args: { routes: [], searched: false }
 }
