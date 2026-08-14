@@ -1,3 +1,16 @@
+/**
+ * Displays a single ranked route: its currency path, headline stats
+ * (output amount, total fee, estimated time), and an expandable per-hop
+ * breakdown.
+ *
+ * Note: `route.totalCost` (the engine's internal ranking score) is
+ * deliberately not displayed here — it's not a monetary amount, only a
+ * sort key used to order the route list.
+ *
+ * @param {Object} props
+ * @param {import('../engine/routingEngine').Route} props.route - The route to display.
+ * @param {number} props.rank - This route's 1-based position in the ranked list, for display (e.g. "#1").
+ */
 export default function RouteCard({ route, rank }) {
   const path = [route.hops[0].fromCurrency, ...route.hops.map((h) => h.toCurrency)].join(' → ')
 
