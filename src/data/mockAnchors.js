@@ -13,7 +13,7 @@ export const mockAnchors = [
     feePercent: 0.1,
     estimatedMinutes: 5,
     minAmount: 1,
-    maxAmount: 100000,
+    maxAmount: 100000
   },
   {
     id: 'anchor-usd-gbp-direct',
@@ -23,7 +23,7 @@ export const mockAnchors = [
     feePercent: 1.8,
     estimatedMinutes: 45,
     minAmount: 10,
-    maxAmount: 20000,
+    maxAmount: 20000
   },
   // Second hops (used to build 2-hop routes)
   {
@@ -34,7 +34,7 @@ export const mockAnchors = [
     feePercent: 0.5,
     estimatedMinutes: 15,
     minAmount: 1,
-    maxAmount: 50000,
+    maxAmount: 50000
   },
   {
     id: 'anchor-usdc-gbp',
@@ -44,7 +44,7 @@ export const mockAnchors = [
     feePercent: 0.4,
     estimatedMinutes: 20,
     minAmount: 1,
-    maxAmount: 50000,
+    maxAmount: 50000
   },
   {
     id: 'anchor-usdc-ngn',
@@ -54,7 +54,7 @@ export const mockAnchors = [
     feePercent: 0.8,
     estimatedMinutes: 10,
     minAmount: 1,
-    maxAmount: 30000,
+    maxAmount: 30000
   },
   {
     id: 'anchor-eur-ngn',
@@ -64,8 +64,8 @@ export const mockAnchors = [
     feePercent: 1.2,
     estimatedMinutes: 30,
     minAmount: 5,
-    maxAmount: 25000,
-  },
+    maxAmount: 25000
+  }
 ]
 
 export const availableCurrencies = () => {

@@ -12,7 +12,7 @@ function buildRouteDetailsText(route) {
     `Total fee: ${route.totalFeePercent}%`,
     `Est. time: ${route.totalEstimatedMinutes} min`,
     'Hops:',
-    ...hopLines,
+    ...hopLines
   ].join('\n')
 }
 
@@ -72,8 +72,8 @@ export default function RouteCard({ route, rank }) {
         <ul>
           {route.hops.map((hop) => (
             <li key={hop.anchorId}>
-              {hop.fromCurrency} → {hop.toCurrency} via <strong>{hop.anchorName}</strong> — {hop.feePercent}%
-              fee, ~{hop.estimatedMinutes} min
+              {hop.fromCurrency} → {hop.toCurrency} via <strong>{hop.anchorName}</strong> —{' '}
+              {hop.feePercent}% fee, ~{hop.estimatedMinutes} min
             </li>
           ))}
         </ul>
