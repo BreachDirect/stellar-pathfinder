@@ -4,6 +4,12 @@ import { useState } from 'react'
  * Currency-pair + amount input. Currencies are populated from whatever
  * data source is passed in (mock in Phase 1, live in Phase 2) — this
  * component never hardcodes a currency list.
+ *
+ * @param {Object} props
+ * @param {string[]} props.currencies - Available currency codes to populate both selects.
+ * @param {(query: { fromCurrency: string, toCurrency: string, amount: number }) => void} props.onSubmit
+ *   Called with a validated query once the form passes its own client-side
+ *   checks (both currencies selected, currencies differ, amount > 0).
  */
 export default function RemittanceForm({ currencies, onSubmit }) {
   const [fromCurrency, setFromCurrency] = useState(currencies[0] ?? '')
@@ -11,6 +17,8 @@ export default function RemittanceForm({ currencies, onSubmit }) {
   const [amount, setAmount] = useState('100')
   const [error, setError] = useState(null)
 
+  // Swaps the two selected currencies in place, so a user correcting a
+  // reversed pair doesn't have to re-select both dropdowns.
   function handleSwap() {
     setFromCurrency(toCurrency)
     setToCurrency(fromCurrency)
