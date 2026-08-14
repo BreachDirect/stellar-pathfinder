@@ -1,5 +1,17 @@
 import RouteCard from './RouteCard'
 
+/**
+ * Renders the ranked list of routes returned by the routing engine, or an
+ * appropriate empty/no-results state.
+ *
+ * Renders nothing at all before a search has run (`searched === false`),
+ * rather than an empty list, so the UI doesn't imply "no routes exist"
+ * before the user has actually searched.
+ *
+ * @param {Object} props
+ * @param {import('../engine/routingEngine').Route[]} props.routes - Ranked routes to display, cheapest-first.
+ * @param {boolean} props.searched - Whether a search has been run yet this session.
+ */
 export default function RouteList({ routes, searched }) {
   if (!searched) {
     return null

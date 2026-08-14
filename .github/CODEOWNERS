@@ -1,6 +1,30 @@
-# Routing engine and its tests
-/src/engine/ @ToryMic
-/tests/routingEngine.test.js @ToryMic
+# CODEOWNERS — stellar-pathfinder
+# Issue #44: Route routing-engine PRs and component PRs to different reviewers.
+#
+# GitHub resolves ownership top-to-bottom; the last matching rule wins.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
-# UI components
-/src/components/ @broda-spendy
+# ── Default: everything requires review from the core team ───────────────────
+*                           @BreachDirect/stellar-pathfinder-core
+
+# ── Routing engine ────────────────────────────────────────────────────────────
+# Changes to the pathfinding / routing logic require a routing-engine reviewer.
+# These files directly affect swap-route correctness and should receive
+# thorough algorithmic review.
+/src/engine/                @ToryMic @BreachDirect/stellar-pathfinder-core
+
+# ── UI components ─────────────────────────────────────────────────────────────
+# React components (forms, cards, lists) — UI/UX focus.
+/src/components/            @ToryMic @BreachDirect/stellar-pathfinder-core
+
+# ── Tests ─────────────────────────────────────────────────────────────────────
+# Anyone touching tests should also loop in the core team.
+/tests/                     @BreachDirect/stellar-pathfinder-core
+
+# ── CI / infrastructure ───────────────────────────────────────────────────────
+/.github/                   @BreachDirect/stellar-pathfinder-core
+/vite.config.js             @BreachDirect/stellar-pathfinder-core
+
+# ── Documentation ─────────────────────────────────────────────────────────────
+*.md                        @BreachDirect/stellar-pathfinder-core
+/docs/                      @BreachDirect/stellar-pathfinder-core
