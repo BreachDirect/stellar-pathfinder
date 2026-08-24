@@ -90,3 +90,7 @@ src/
 tests/
   routingEngine.test.js
 ```
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
