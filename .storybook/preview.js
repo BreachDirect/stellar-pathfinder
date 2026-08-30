@@ -8,8 +8,8 @@ export default {
       default: 'app',
       values: [
         { name: 'app', value: '#0b1220' },
-        { name: 'light', value: '#ffffff' },
-      ],
-    },
-  },
+        { name: 'light', value: '#ffffff' }
+      ]
+    }
+  }
 }

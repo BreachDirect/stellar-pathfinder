@@ -6,22 +6,36 @@ import RouteList from '../src/components/RouteList'
 const routes = [
   {
     hops: [
-      { anchorId: 'a', anchorName: 'MockAnchor US', fromCurrency: 'USD', toCurrency: 'USDC', feePercent: 0.1, estimatedMinutes: 5 },
+      {
+        anchorId: 'a',
+        anchorName: 'MockAnchor US',
+        fromCurrency: 'USD',
+        toCurrency: 'USDC',
+        feePercent: 0.1,
+        estimatedMinutes: 5
+      }
     ],
     totalFeePercent: 0.1,
     totalEstimatedMinutes: 5,
     outputAmount: 99.9,
-    totalCost: 15,
+    totalCost: 15
   },
   {
     hops: [
-      { anchorId: 'b', anchorName: 'MockAnchor UK', fromCurrency: 'USDC', toCurrency: 'GBP', feePercent: 0.4, estimatedMinutes: 20 },
+      {
+        anchorId: 'b',
+        anchorName: 'MockAnchor UK',
+        fromCurrency: 'USDC',
+        toCurrency: 'GBP',
+        feePercent: 0.4,
+        estimatedMinutes: 20
+      }
     ],
     totalFeePercent: 0.4,
     totalEstimatedMinutes: 20,
     outputAmount: 99.6,
-    totalCost: 60,
-  },
+    totalCost: 60
+  }
 ]
 
 function setup({ searched, routes: list }) {

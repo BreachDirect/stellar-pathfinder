@@ -7,16 +7,16 @@ export default {
   component: RemittanceForm,
   tags: ['autodocs'],
   parameters: {
-    layout: 'centered',
+    layout: 'centered'
   },
   args: {
     currencies: availableCurrencies(),
-    onSubmit: action('onSubmit'),
+    onSubmit: action('onSubmit')
   },
   argTypes: {
     currencies: { control: false },
-    onSubmit: { control: false },
-  },
+    onSubmit: { control: false }
+  }
 }
 
 export const Default = {}
@@ -24,6 +24,6 @@ export const Default = {}
 export const MinimalPair = {
   name: 'Two currencies',
   args: {
-    currencies: ['USD', 'USDC'],
-  },
+    currencies: ['USD', 'USDC']
+  }
 }

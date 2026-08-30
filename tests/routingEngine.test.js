@@ -2,11 +2,56 @@ import { describe, it, expect } from 'vitest'
 import { findRoutes, createCachedFindRoutes } from '../src/engine/routingEngine'
 
 const anchors = [
-  { id: 'a-usd-usdc', name: 'A', fromCurrency: 'USD', toCurrency: 'USDC', feePercent: 0.1, estimatedMinutes: 5, minAmount: 1, maxAmount: 100000 },
-  { id: 'a-usd-gbp', name: 'B', fromCurrency: 'USD', toCurrency: 'GBP', feePercent: 1.8, estimatedMinutes: 45, minAmount: 10, maxAmount: 20000 },
-  { id: 'a-usdc-gbp', name: 'C', fromCurrency: 'USDC', toCurrency: 'GBP', feePercent: 0.4, estimatedMinutes: 20, minAmount: 1, maxAmount: 50000 },
-  { id: 'a-usdc-eur', name: 'D', fromCurrency: 'USDC', toCurrency: 'EUR', feePercent: 0.5, estimatedMinutes: 15, minAmount: 1, maxAmount: 50000 },
-  { id: 'a-small-only', name: 'E', fromCurrency: 'USD', toCurrency: 'NGN', feePercent: 2.0, estimatedMinutes: 10, minAmount: 1, maxAmount: 50 },
+  {
+    id: 'a-usd-usdc',
+    name: 'A',
+    fromCurrency: 'USD',
+    toCurrency: 'USDC',
+    feePercent: 0.1,
+    estimatedMinutes: 5,
+    minAmount: 1,
+    maxAmount: 100000
+  },
+  {
+    id: 'a-usd-gbp',
+    name: 'B',
+    fromCurrency: 'USD',
+    toCurrency: 'GBP',
+    feePercent: 1.8,
+    estimatedMinutes: 45,
+    minAmount: 10,
+    maxAmount: 20000
+  },
+  {
+    id: 'a-usdc-gbp',
+    name: 'C',
+    fromCurrency: 'USDC',
+    toCurrency: 'GBP',
+    feePercent: 0.4,
+    estimatedMinutes: 20,
+    minAmount: 1,
+    maxAmount: 50000
+  },
+  {
+    id: 'a-usdc-eur',
+    name: 'D',
+    fromCurrency: 'USDC',
+    toCurrency: 'EUR',
+    feePercent: 0.5,
+    estimatedMinutes: 15,
+    minAmount: 1,
+    maxAmount: 50000
+  },
+  {
+    id: 'a-small-only',
+    name: 'E',
+    fromCurrency: 'USD',
+    toCurrency: 'NGN',
+    feePercent: 2.0,
+    estimatedMinutes: 10,
+    minAmount: 1,
+    maxAmount: 50
+  }
 ]
 
 describe('findRoutes', () => {
@@ -59,15 +104,15 @@ describe('findRoutes', () => {
   })
 
   it('throws a clear error when fromCurrency equals toCurrency', () => {
-    expect(() => findRoutes({ fromCurrency: 'USD', toCurrency: 'USD', amount: 100, anchors })).toThrow(
-      /must differ/
-    )
+    expect(() =>
+      findRoutes({ fromCurrency: 'USD', toCurrency: 'USD', amount: 100, anchors })
+    ).toThrow(/must differ/)
   })
 
   it('throws a clear error for non-positive amounts', () => {
-    expect(() => findRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 0, anchors })).toThrow(
-      /positive/
-    )
+    expect(() =>
+      findRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 0, anchors })
+    ).toThrow(/positive/)
   })
 
   it('throws a clear error when anchors is not an array (e.g. a failed Phase 2 fetch)', () => {
@@ -81,7 +126,12 @@ describe('createCachedFindRoutes', () => {
   it('returns identical results for repeated identical queries', () => {
     const cachedFindRoutes = createCachedFindRoutes()
     const first = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
-    const second = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
+    const second = cachedFindRoutes({
+      fromCurrency: 'USD',
+      toCurrency: 'GBP',
+      amount: 100,
+      anchors
+    })
     expect(second).toEqual(first)
   })
 
@@ -98,7 +148,12 @@ describe('createCachedFindRoutes', () => {
   it('computes a fresh result for a different query', () => {
     const cachedFindRoutes = createCachedFindRoutes()
     const first = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 100, anchors })
-    const second = cachedFindRoutes({ fromCurrency: 'USD', toCurrency: 'GBP', amount: 200, anchors })
+    const second = cachedFindRoutes({
+      fromCurrency: 'USD',
+      toCurrency: 'GBP',
+      amount: 200,
+      anchors
+    })
     expect(second).not.toBe(first)
   })
 })

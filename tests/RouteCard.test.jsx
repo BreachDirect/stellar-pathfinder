@@ -5,13 +5,27 @@ import RouteCard from '../src/components/RouteCard'
 
 const route = {
   hops: [
-    { anchorId: 'a', anchorName: 'MockAnchor US', fromCurrency: 'USD', toCurrency: 'USDC', feePercent: 0.1, estimatedMinutes: 5 },
-    { anchorId: 'b', anchorName: 'MockAnchor UK', fromCurrency: 'USDC', toCurrency: 'GBP', feePercent: 0.4, estimatedMinutes: 20 },
+    {
+      anchorId: 'a',
+      anchorName: 'MockAnchor US',
+      fromCurrency: 'USD',
+      toCurrency: 'USDC',
+      feePercent: 0.1,
+      estimatedMinutes: 5
+    },
+    {
+      anchorId: 'b',
+      anchorName: 'MockAnchor UK',
+      fromCurrency: 'USDC',
+      toCurrency: 'GBP',
+      feePercent: 0.4,
+      estimatedMinutes: 20
+    }
   ],
   totalFeePercent: 0.5,
   totalEstimatedMinutes: 25,
   outputAmount: 99.5,
-  totalCost: 75,
+  totalCost: 75
 }
 
 const expectedText = [
@@ -21,7 +35,7 @@ const expectedText = [
   'Est. time: 25 min',
   'Hops:',
   '1. USD → USDC via MockAnchor US — 0.1% fee, ~5 min',
-  '2. USDC → GBP via MockAnchor UK — 0.4% fee, ~20 min',
+  '2. USDC → GBP via MockAnchor UK — 0.4% fee, ~20 min'
 ].join('\n')
 
 function setup() {

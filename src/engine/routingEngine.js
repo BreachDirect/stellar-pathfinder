@@ -46,7 +46,7 @@ function buildRoute(hops, amount) {
     totalFeePercent: Number(totalFeePercent.toFixed(4)),
     totalEstimatedMinutes,
     totalCost,
-    outputAmount: Number(outputAmount.toFixed(2)),
+    outputAmount: Number(outputAmount.toFixed(2))
   }
 }
 
@@ -57,7 +57,7 @@ function toHop(anchor) {
     fromCurrency: anchor.fromCurrency,
     toCurrency: anchor.toCurrency,
     feePercent: anchor.feePercent,
-    estimatedMinutes: anchor.estimatedMinutes,
+    estimatedMinutes: anchor.estimatedMinutes
   }
 }
 
@@ -92,12 +92,15 @@ export function findRoutes({ fromCurrency, toCurrency, amount, anchors }) {
 
   // 1-hop: direct anchor matches
   const directAnchors = anchors.filter(
-    (a) => a.fromCurrency === fromCurrency && a.toCurrency === toCurrency && amountFitsAnchor(a, amount)
+    (a) =>
+      a.fromCurrency === fromCurrency && a.toCurrency === toCurrency && amountFitsAnchor(a, amount)
   )
   directAnchors.forEach((a) => routes.push(buildRoute([toHop(a)], amount)))
 
   // 2-hop: fromCurrency -> X, then X -> toCurrency
-  const firstHops = anchors.filter((a) => a.fromCurrency === fromCurrency && amountFitsAnchor(a, amount))
+  const firstHops = anchors.filter(
+    (a) => a.fromCurrency === fromCurrency && amountFitsAnchor(a, amount)
+  )
   firstHops.forEach((first) => {
     const intermediateAmount = amount * (1 - first.feePercent / 100)
     const secondHops = anchors.filter(

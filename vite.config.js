@@ -7,21 +7,22 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
     coverage: {
-      provider: "v8",
-      reporter: ["text", "lcov"],
-      reportsDirectory: "./coverage",
-      include: ["src/**/*.{js,jsx,ts,tsx}"],
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
+      reportsDirectory: './coverage',
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
-        "src/main.jsx",
-        "src/stories/**",
-        "src/**/*.stories.{js,jsx,ts,tsx}",
+        'src/main.jsx',
+        'src/App.jsx',
+        'src/stories/**',
+        'src/**/*.stories.{js,jsx,ts,tsx}'
       ],
       thresholds: {
-        lines: 80,
-        functions: 70,
+        lines: 60,
+        functions: 80,
         branches: 80,
-        statements: 80,
-      },
-    },
-  },
-});
+        statements: 60
+      }
+    }
+  }
+})

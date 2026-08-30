@@ -76,7 +76,11 @@ export default function RemittanceForm({ currencies, onSubmit }) {
 
         <div className="field">
           <label htmlFor="toCurrency">To</label>
-          <select id="toCurrency" value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+          <select
+            id="toCurrency"
+            value={toCurrency}
+            onChange={(e) => setToCurrency(e.target.value)}
+          >
             {currencies.map((c) => (
               <option key={c} value={c}>
                 {c}
